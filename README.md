@@ -2,6 +2,22 @@
 This is a POC Test project for INTEL CPUs on blocking NMI Entries through the IDT Handler.
 
 ```cpp
+typedef struct _KNMI_HANDLER_CALLBACK
+{
+	struct _KNMI_HANDLER_CALLBACK* Next;
+	void(*Callback)();
+	void* Context;
+	void* Handle;
+} KNMI_HANDLER_CALLBACK, * PKNMI_HANDLER_CALLBACK;
+
+typedef struct _KAFFINITY_EX
+{
+	USHORT Count;                                                           //0x0
+	USHORT Size;                                                            //0x2
+	ULONG Reserved;                                                         //0x4
+	ULONGLONG Bitmap[20];                                                   //0x8
+} KAFFINITY_EX, * PKAFFINITY_EX;
+
 void PreventNMIExecution() {
 	void* ntoskrnl_base = reinterpret_cast<void*>((uintptr_t)get_ntos_base_address());
 	if (ntoskrnl_base == NULL) {
