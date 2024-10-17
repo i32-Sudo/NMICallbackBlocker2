@@ -45,4 +45,5 @@ void PreventNMIExecution() {
 		*(QWORD*)(pattern_idt + 0x40) = *(QWORD*)(pattern_idt + 0x1A8);
 		// DbgPrint(_("[NMI] IDT Patched / NMIs Blocked"));
 	}
+}
 ```
